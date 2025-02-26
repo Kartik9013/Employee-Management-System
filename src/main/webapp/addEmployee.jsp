@@ -10,9 +10,10 @@
 </head>
 <%
 session = request.getSession(false);
-if(session == null||session.getAttribute("admin") == null){
-	response.sendRedirect("index.jsp");
-	return;
+
+if (session == null || session.getAttribute("userType") == null) {
+    response.sendRedirect("index.jsp?error=unauthorized");
+    return;
 }
 %>
 <body>
@@ -76,6 +77,17 @@ if(session == null||session.getAttribute("admin") == null){
                 <label for="highestEducation">Highest Education:</label>
                 <input type="text" id="highestEducation" name="highestEducation" required placeholder="Enter Employee's Highest Education">
             </div>
+            
+            <div class="form-group">
+                <label for="highestEducation">Highest Education:</label>
+                <input type="text" id="highestEducation" name="highestEducation" required placeholder="Enter Employee's Highest Education">
+            </div>
+            
+            <div class="form-group">
+                <label for="highestEducation">Highest Education:</label>
+                <input type="text" id="highestEducation" name="highestEducation" required placeholder="Enter Employee's Highest Education">
+            </div>
+            
             <div class="form-group">
                 <button type="submit">Add Employee</button>
             </div>

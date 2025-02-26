@@ -7,11 +7,12 @@
 <title>New Admin Registration</title>
 </head>
 <%
-	session = request.getSession(false);
-	if(session == null||session.getAttribute("admin") == null){
-		response.sendRedirect("index.jsp");
-		return;
-	}
+session = request.getSession(false);
+
+if (session == null || session.getAttribute("userType") == null) {
+    response.sendRedirect("index.jsp?error=unauthorized");
+    return;
+}
 
 %>
 <body>

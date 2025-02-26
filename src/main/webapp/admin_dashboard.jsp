@@ -20,14 +20,13 @@
 	<div class="dashboard-container">
         <h2>Welcome, <%= username %> (Admin)</h2>
 
-        <nav>
-            <ul>
-                <li><a href="ViewEmployeeServlet">View Employees</a></li>
-                <li><a href="addEmployee.jsp">Add Employee</a></li>
-                <li><a href="updateAdmin.jsp">Update Profile</a></li>
-                <li><a href="LogoutServlet">Logout</a></li>
-            </ul>
-        </nav>
-    </div>
+        <div class="dashboard-grid">
+            <a href="ViewEmployeeServlet" class="dashboard-card">View Employees</a>
+            <a href="addEmployee.jsp" class="dashboard-card">Add Employee</a>
+            <a href="profile.jsp" class="dashboard-card">Profile</a>
+            <a href="edit_profile.jsp" class="dashboard-card">Update Profile</a>
+            <a href="LogoutServlet" class="dashboard-card logout">Logout</a>
+        </div>
+     </div>   
 </body>
 </html>

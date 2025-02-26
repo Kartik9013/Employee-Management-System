@@ -27,9 +27,10 @@ public class editEmployeeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession(false);
-		if(session == null||session.getAttribute("admin") == null){
-			response.sendRedirect("index.jsp");
-			return;
+
+		if (session == null || session.getAttribute("userType") == null) {
+		    response.sendRedirect("index.jsp?error=unauthorized");
+		    return;
 		}
 		
 		try {

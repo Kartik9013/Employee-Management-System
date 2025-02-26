@@ -4,9 +4,10 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%
 session = request.getSession(false);
-if(session == null||session.getAttribute("admin") == null){
-	response.sendRedirect("index.jsp");
-	return;
+
+if (session == null || session.getAttribute("userType") == null) {
+    response.sendRedirect("index.jsp?error=unauthorized");
+    return;
 }
 
 int id = Integer.parseInt(request.getParameter("id"));
@@ -119,7 +120,7 @@ Employee employee = employeeDao.getEmployeeById(id);
 
         <div class="btn-container">
             <button type="submit" class="btn">Update</button>
-            <a href="viewEmployees.jsp" class="btn btn-danger">Cancel</a>
+            <a href="ViewEmployeeServlet" class="btn btn-danger">Cancel</a>
         </div>
     </form>
 </div>

@@ -15,8 +15,8 @@ public class EmployeeDao {
 	
 	public boolean addEmployee(Employee employee) {
 		try (Connection conn = DBConnection.getConnection()){
-			String sql =  "INSERT INTO employees (name, fathersName, dob, salary, designation, address, phone, email, highestEducation) "
-	                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql =  "INSERT INTO employees (name, fathersName, dob, salary, designation, address, phone, email, highestEducation, password) "
+	                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -29,6 +29,7 @@ public class EmployeeDao {
 	        pstmt.setString(7, employee.getPhone());
 	        pstmt.setString(8, employee.getEmail());
 	        pstmt.setString(9, employee.getHighestEducation());
+	        pstmt.setString(10, employee.getPassword());
 			
 	        int result = pstmt.executeUpdate();
 	        return result>0;

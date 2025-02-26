@@ -13,6 +13,7 @@ public class Employee {
 	private String phone;
 	private String email;
 	private String highestEducation;
+	private String password;
 	
 	public Employee() {
 		
@@ -20,7 +21,7 @@ public class Employee {
 	
 	public Employee(int id, String name, String fathersName, LocalDate dob, Double salary, 
 			String designation, String address, String phone, String email,
-			String highestEducation) {
+			String highestEducation, String password) {
 		this.id = id;
 		this.name = name;
 		this.fathersName = fathersName;
@@ -31,12 +32,29 @@ public class Employee {
 		this.phone = phone;
 		this.email = email;
 		this.highestEducation = highestEducation;
+		this.setPassword(password);
 	}
 	
 	// To Add new Employee
 	public Employee(String name, String fathersName, LocalDate dob, Double salary, 
 			String designation, String address, String phone, String email,
+			String highestEducation,String password) {
+		this.name = name;
+		this.fathersName = fathersName;
+		this.dob = dob;
+		this.salary = salary;
+		this.designation = designation;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.highestEducation = highestEducation;
+		this.setPassword(password);
+	}
+	
+	public Employee(int id, String name, String fathersName, LocalDate dob, Double salary, 
+			String designation, String address, String phone, String email,
 			String highestEducation) {
+		this.id = id;
 		this.name = name;
 		this.fathersName = fathersName;
 		this.dob = dob;
@@ -126,5 +144,13 @@ public class Employee {
 
 	public void setHighestEducation(String highestEducation) {
 		this.highestEducation = highestEducation;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

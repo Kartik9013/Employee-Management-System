@@ -22,9 +22,10 @@ public class UpdateAdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
-		if(session == null||session.getAttribute("admin") == null){
-			response.sendRedirect("index.jsp");
-			return;
+
+		if (session == null || session.getAttribute("userType") == null) {
+		    response.sendRedirect("index.jsp?error=unauthorized");
+		    return;
 		}
 		
 		Admin admin = (Admin) session.getAttribute("admin");

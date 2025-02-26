@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <%
-    session = request.getSession(false);
-    Admin admin = (Admin) session.getAttribute("admin");
+session = request.getSession(false);
 
-    if (admin == null) {
-        response.sendRedirect("index.jsp");
-        return;
-    }
+if (session == null || session.getAttribute("userType") == null) {
+    response.sendRedirect("index.jsp?error=unauthorized");
+    return;
+}
 
-    String message = request.getParameter("message");
-    String messageType = request.getParameter("messageType");
+String userType = (String)session.getAttribute("userType");
+String username = (String)session.getAttribute("username");
+
+String message = request.getParameter("message");
+String messageType = request.getParameter("messageType");
 %>
 <body>
 
@@ -37,7 +39,7 @@
 <% } %>
 
 <form action="UpdateAdminServlet" method="post">
-    <input type="hidden" name="username" value="<%= admin.getUsername() %>">
+    <input type="hidden" name="username" value="<%= username %>">
 
     <label>Old Password:</label>
     <input type="password" name="oldPassword" required>

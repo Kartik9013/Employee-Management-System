@@ -22,8 +22,9 @@ public class AddEmployeeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession(false);
-		if(session == null||session.getAttribute("admin") == null){
+		HttpSession session = request.getSession();
+	
+		if(session == null||session.getAttribute("userType") == null){
 			response.sendRedirect("index.jsp");
 			return;
 		}
@@ -37,9 +38,10 @@ public class AddEmployeeServlet extends HttpServlet {
 	     String phone = request.getParameter("phone");
 	     String email = request.getParameter("email");
 	     String highestEducation = request.getParameter("highestEducation");
+	     String password = request.getParameter("password");
 	     
 	     Employee employee = new Employee(name, fathersName, dob, salary, designation, 
-	    		 address, phone, email, highestEducation);
+	    		 address, phone, email, highestEducation, password);
 	     
 	     EmployeeDao employeeDao = new EmployeeDao();
 	     boolean isAdded = employeeDao.addEmployee(employee);

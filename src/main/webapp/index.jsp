@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Admin Login</h2>
+        <h2>Login</h2>
         <%-- Display error message if login fails --%>
         <% if(request.getParameter("error") != null) { %>
             <p class="error">Invalid username or password. Try again.</p>
