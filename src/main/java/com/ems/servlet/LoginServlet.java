@@ -9,8 +9,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-
+import com.ems.dao.EmployeeDao;
 import com.ems.dao.UserDao;
+import com.ems.model.Employee;
 
 
 /**
@@ -21,23 +22,30 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
+		String usernameOrEmail = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		UserDao userDao = new UserDao();
-		String userType = userDao.authenticateUser(username, password);
+		String userType = userDao.authenticateUser(usernameOrEmail, password);
+		EmployeeDao employeeDao = new EmployeeDao();
 		
 		if(userType!=null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userType", userType);
-			session.setAttribute("username", username);
+			session.setAttribute("username", usernameOrEmail);
 			
 			if(userType.equals("admin")) {
 				response.sendRedirect("admin_dashboard.jsp");
 			}else if (userType.equals("employee")) {
-				session.setAttribute("employeeId", userDao.getEmployeeId(username));
-				session.setAttribute("username", userDao.getEmployeeName(username));
-				response.sendRedirect("user_dashboard.jsp");
+				
+				Employee employee = employeeDao.getEmployeeByEmail(usernameOrEmail,password);
+				if(employee!=null) {
+					session.setAttribute("employeeId", employee.getId());
+					session.setAttribute("username", employee.getName());
+					response.sendRedirect("user_dashboard.jsp");
+				}else {
+					response.sendRedirect("index.jsp?error=invalid");
+				}
 			}
 			return;
 		}

@@ -10,7 +10,7 @@
 	session = request.getSession(false);
 	String userType = (String)session.getAttribute("userType");
 	String username = (String)session.getAttribute("username");
-	if(session == null || !userType.equals("emplpoyee") || userType==null){
+	if(session == null || !userType.equals("employee") || userType==null){
 		response.sendRedirect("index.jsp?error=unauthorized");
 		return;
 	}

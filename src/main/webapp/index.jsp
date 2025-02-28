@@ -16,13 +16,15 @@
         <% } %>
 
         <form action="LoginServlet" method="post">
-            <label>username:</label>
+            <label>username or Email:</label>
             <input type="text" name="username" required>
             
             <label>Password:</label>
             <input type="password" name="password" required>
             
             <button type="submit">Login</button>
+            <p>New Employee? <a href="register.jsp">Register Here</a></p>
+            
         </form>
     </div>
 </body>

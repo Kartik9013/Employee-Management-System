@@ -3,16 +3,15 @@ package com.ems.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import com.ems.util.DBConnection;
 
 public class UserDao {
-	public String authenticateUser(String username, String password) {
+	public String authenticateUser(String usernameOrEmail, String password) {
 		try (Connection conn = DBConnection.getConnection()){
 			String sqlAdmin = "SELECT * FROM admin WHERE username = ? AND password = ?";
 			PreparedStatement pstmtAdmin = conn.prepareStatement(sqlAdmin);
-			pstmtAdmin.setString(1, username);
+			pstmtAdmin.setString(1, usernameOrEmail);
 			pstmtAdmin.setString(2, password);
 			
 			ResultSet rsAdmin = pstmtAdmin.executeQuery();
@@ -21,9 +20,9 @@ public class UserDao {
 				return "admin"; // Admin found
 			}
 			
-			String sqlEmp = "SELECT * FROM admin WHERE username = ? AND password = ?";
+			String sqlEmp = "SELECT * FROM employees WHERE email = ? AND password = ?";
 			PreparedStatement pstmtEmp = conn.prepareStatement(sqlEmp);
-			pstmtEmp.setString(1, username);
+			pstmtEmp.setString(1, usernameOrEmail);
 			pstmtEmp.setString(2, password);
 			
 			ResultSet rsEmp = pstmtEmp.executeQuery();
@@ -39,26 +38,9 @@ public class UserDao {
 		return null;
 	}
 	
-	public int getEmployeeId(String username) {
-		try (Connection conn = DBConnection.getConnection() ){
-			String sql = "SELECT id FROM employees WHERE username = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, username);
-			
-			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return rs.getInt("id");
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return -1;
-	}
-	
 	public String getEmployeeName(String username) {
 		try (Connection conn = DBConnection.getConnection() ){
-			String sql = "SELECT name FROM employees WHERE username = ?";
+			String sql = "SELECT name FROM employees WHERE email = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
 			
@@ -106,7 +88,7 @@ public class UserDao {
             int rows = pstmt.executeUpdate();
 
             if (!newPassword.isEmpty()) {
-                String passwordQuery = "UPDATE employee SET password=? WHERE id=?";
+                String passwordQuery = "UPDATE employees SET password=? WHERE id=?";
                 PreparedStatement passwordStmt = conn.prepareStatement(passwordQuery);
                 passwordStmt.setString(1, newPassword);
                 passwordStmt.setInt(2, employeeId);

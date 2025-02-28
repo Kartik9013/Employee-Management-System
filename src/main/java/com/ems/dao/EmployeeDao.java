@@ -145,6 +145,34 @@ public class EmployeeDao {
 		}
 	}
 	
+	public Employee getEmployeeByEmail(String email,String password) {
+	    try (Connection conn = DBConnection.getConnection()) {
+	        String query = "SELECT * FROM employees WHERE email=? AND password = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, email);
+	        pstmt.setString(2, password);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            return new Employee(
+	                rs.getInt("id"),
+	                rs.getString("name"),
+	                rs.getString("fathersname"),
+	                rs.getDate("dob").toLocalDate(),
+	                rs.getDouble("salary"),
+	                rs.getString("designation"),
+	                rs.getString("address"),
+	                rs.getString("phone"),
+	                rs.getString("email"),
+	                rs.getString("highestEducation"),
+	                rs.getString("password")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 	
 	
 }
