@@ -103,7 +103,7 @@ public class EmployeeDao {
 		boolean updated = false;
 		
 		try (Connection conn = DBConnection.getConnection()){
-			String sql = "UPDATE employees SET name=?, fathersname=?, dob=?, salary=?,"
+			String sql = "UPDATE employees SET name=?, fathersname=?, dob=?,"
 					+ " designation=?, address=?, phone=?, email=?, highestEducation=?"
 					+ " WHERE id=?";
 			
@@ -111,13 +111,12 @@ public class EmployeeDao {
 			pstmt.setString(1, employee.getName());
 	        pstmt.setString(2, employee.getFathersName());
 	        pstmt.setDate(3, java.sql.Date.valueOf(employee.getDob()));
-	        pstmt.setDouble(4, employee.getSalary());
-	        pstmt.setString(5, employee.getDesignation());
-	        pstmt.setString(6, employee.getAddress());
-	        pstmt.setString(7, employee.getPhone());
-	        pstmt.setString(8, employee.getEmail());
-	        pstmt.setString(9, employee.getHighestEducation());
-	        pstmt.setInt(10, employee.getId());
+	        pstmt.setString(4, employee.getDesignation());
+	        pstmt.setString(5, employee.getAddress());
+	        pstmt.setString(6, employee.getPhone());
+	        pstmt.setString(7, employee.getEmail());
+	        pstmt.setString(8, employee.getHighestEducation());
+	        pstmt.setInt(9, employee.getId());
 	        
 	        int rows = pstmt.executeUpdate();
 	        
@@ -172,6 +171,39 @@ public class EmployeeDao {
 	        e.printStackTrace();
 	    }
 	    return null;
+	}
+	
+	public boolean validateEmployeePassword(int id,String currentPassword) {
+		try (Connection conn = DBConnection.getConnection()){
+			String sql = "SELECT * FROM employees WHERE id = ? AND password = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setString(2, currentPassword);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return false;
+	}
+	
+	public boolean updateEmployeePassword(int id, String newPassword) {
+		try (Connection conn = DBConnection.getConnection()){
+			String sql = "UPDATE employees SET password = ? WHERE id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPassword);
+			pstmt.setInt(2, id);
+			
+			int rowsUpdated = pstmt.executeUpdate();
+			
+			return rowsUpdated>0;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	

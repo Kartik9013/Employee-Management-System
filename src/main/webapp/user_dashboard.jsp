@@ -21,7 +21,7 @@
         <h2>Welcome, <%= username %> (Employee)</h2>
 
         <div class="dashboard-grid">
-            <a href="profile.jsp" class="dashboard-card">View Profile</a>
+            <a href="employeeProfile.jsp" class="dashboard-card">View Profile</a>
             <a href="viewSalary.jsp" class="dashboard-card">View Salary</a>
             <a href="LogoutServlet" class="dashboard-card logout">Logout</a>
         </div>
