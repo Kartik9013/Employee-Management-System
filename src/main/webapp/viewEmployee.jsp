@@ -62,7 +62,7 @@ if (session == null || session.getAttribute("userType") == null) {
         <tbody>
             <!-- Fetch and display employee data -->
             <%
-            
+            	@SuppressWarnings("unchecked")
                 List<Employee> employees = (List<Employee>) request.getAttribute("employees");
                 for (Employee emp : employees) {
             %>

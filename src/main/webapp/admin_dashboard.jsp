@@ -22,9 +22,10 @@
 
         <div class="dashboard-grid">
             <a href="ViewEmployeeServlet" class="dashboard-card">View Employees</a>
-            <a href="addEmployee.jsp" class="dashboard-card">Add Employee</a>
             <a href="profile.jsp" class="dashboard-card">Profile</a>
-            <a href="edit_profile.jsp" class="dashboard-card">Update Profile</a>
+            <a href="addEmployee.jsp" class="dashboard-card">Add Employee</a>
+            <a href="ManageAttendanceServlet">Manage Attendance</a><br>
+            <a href="updateAdmin.jsp" class="dashboard-card">Change Password</a>
             <a href="LogoutServlet" class="dashboard-card logout">Logout</a>
         </div>
      </div>   
